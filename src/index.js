@@ -1,7 +1,10 @@
 const express = require('express');
+const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 
 const customers = [];
@@ -50,7 +53,7 @@ app.post('/account', (request, response) => {
     statements: [],
   });
 
-  return response.status(201).send();
+  return response.status(201).json({ name, cpf });
 });
 
 app.get('/statement', verifyIfAccountCPFExists, (request, response) => {
